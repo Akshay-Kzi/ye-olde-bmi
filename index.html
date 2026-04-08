@@ -3,26 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI Calculator</title>
+    <title>★★★ ULTIMATE BMI CALCULATOR 3000 ★★★</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <marquee scrollamount="10" direction="right">🔥 WELCOME TO THE INTERNET'S #1 BMI CALCULATOR 🔥 BEST VIEWED IN NETSCAPE NAVIGATOR 🔥 FREE PIZZA COUPON IF YOU CAN FIND IT 🔥</marquee>
+    
     <div class="container">
-        <h1>BMI Calculator</h1>
+        <div class="under-construction">🚧 UNDER CONSTRUCTION 🚧</div>
         
-        <div class="input-group">
-            <label for="height">Height (cm):</label>
-            <input type="number" id="height" placeholder="Enter height in cm">
+        <h1 class="rainbow">★ BMI Calculator ★</h1>
+        <p class="subtitle">~ certified by Dr. Internet ~</p>
+        
+        <div class="fake-ad">
+            🎰 Lose weight FAST with this ONE weird trick doctors HATE! <a href="#">CLICK HERE!!!</a> 🎰
         </div>
         
         <div class="input-group">
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight" placeholder="Enter weight in kg">
+            <label for="height" class="rainbow-text">Height (cm):</label>
+            <input type="number" id="height" placeholder="Enter height in cm (probably lying)">
         </div>
         
-        <button id="calculateBtn">Calculate BMI</button>
+        <div class="input-group">
+            <label for="weight" class="rainbow-text">Weight (kg):</label>
+            <input type="number" id="weight" placeholder="Enter weight in kg (we won't judge... much)">
+        </div>
+        
+        <button id="calculateBtn" class="blink">🧮 CALCULATE BMI 🧮</button>
+        
+        <div id="loading" style="display:none;">
+            <div class="spinner">⏳</div>
+            <p class="rainbow-text">Consulting the ancient spirits...</p>
+        </div>
         
         <div id="result"></div>
+        
+        <div id="achievement" style="display:none;">
+            🏆 <span id="badge">ACHIEVEMENT UNLOCKED</span> 🏆
+        </div>
+        
+        <div class="fake-ad">
+            💊 MIRACLE PILL: Turn your BMI into your IQ! <a href="#">ORDER NOW!!!</a> 💊
+        </div>
+        
+        <div class="visitor-counter">
+            Visitors: <span id="visitorCount">0000042</span>
+        </div>
+        
+        <footer>
+            <p class="blink">Made with ❤️ and questionable life choices</p>
+            <p class="netscape">Best viewed in Netscape Navigator 4.0 at 800x600</p>
+        </footer>
     </div>
     
     <script src="script.js"></script>
