@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>★★★ ULTIMATE BMI CALCULATOR 3000 ★★★</title>
+    <meta name="description" content="The internet's most sarcastic BMI calculator. Get roasted by Dr. Internet while discovering your body mass index. Not actual medical advice.">
+    <meta name="keywords" content="BMI calculator, funny BMI, meme calculator, roast me, retro web">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <marquee scrollamount="10" direction="right">🔥 WELCOME TO THE INTERNET'S #1 BMI CALCULATOR 🔥 BEST VIEWED IN NETSCAPE NAVIGATOR 🔥 FREE PIZZA COUPON IF YOU CAN FIND IT 🔥</marquee>
+    <marquee scrollamount="10" direction="left">🔥 WELCOME TO THE INTERNET'S #1 BMI CALCULATOR 🔥 BEST VIEWED IN NETSCAPE NAVIGATOR 🔥 FREE PIZZA COUPON IF YOU CAN FIND IT 🔥</marquee>
     
     <div class="container">
         <div class="under-construction">🚧 UNDER CONSTRUCTION 🚧</div>
@@ -38,6 +40,8 @@
         
         <div id="result"></div>
         
+        <button id="share-results" class="blink">📤 SHARE YOUR SHAME 📤</button>
+        
         <div id="achievement" style="display:none;">
             🏆 <span id="badge">ACHIEVEMENT UNLOCKED</span> 🏆
         </div>
@@ -54,6 +58,19 @@
             <p class="blink">Made with ❤️ and questionable life choices</p>
             <p class="netscape">Best viewed in Netscape Navigator 4.0 at 800x600</p>
         </footer>
+    </div>
+    
+    <div id="overlay"></div>
+    <div id="achievement-card">
+        <div class="card-title">🏆 INTERNET ACHIEVEMENT 🏆</div>
+        <div class="card-bmi" id="card-bmi"></div>
+        <div class="card-message" id="card-message"></div>
+        <div class="card-footer">
+            <p>★ BMI Calculator 3000 ★</p>
+            <p id="card-advice"></p>
+            <p>Best viewed at 800x600</p>
+        </div>
+        <button id="close-card">✖ CLOSE</button>
     </div>
     
     <script src="script.js"></script>
