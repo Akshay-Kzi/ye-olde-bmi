@@ -109,12 +109,14 @@ let lastResult = {};
 document.getElementById('calculateBtn').addEventListener('click', calculateBMI);
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && (e.target.id === 'height' || e.target.id === 'weight')) {
         calculateBMI();
     }
 });
 
 document.getElementById('share-results').addEventListener('click', function() {
+    // Guard against clicking share before any calculation has populated lastResult.
+    if (!lastResult.bmi) return;
     playRetroSound('click');
     document.getElementById('card-bmi').textContent = 'BMI: ' + lastResult.bmi;
     document.getElementById('card-message').textContent = '"' + lastResult.sassMessage + '"';
@@ -150,26 +152,26 @@ function calculateBMI() {
     resultDiv.style.backgroundColor = '';
     resultDiv.style.color = '';
     resultDiv.style.borderColor = '';
-    resultDiv.innerHTML = '';
+    resultDiv.textContent = '';
     achievementDiv.style.display = 'none';
     shareBtn.style.display = 'none';
 
     if (isNaN(heightCm) || isNaN(weightKg)) {
-        resultDiv.innerHTML = '🤔 ERROR: Did you forget to type numbers?<br>Or are you just testing my patience?';
+        resultDiv.textContent = '🤔 ERROR: Did you forget to type numbers? Or are you just testing my patience?';
         resultDiv.style.color = '#333';
         playRetroSound('click');
         return;
     }
 
     if (heightCm <= 0 || weightKg <= 0) {
-        resultDiv.innerHTML = '🚨 ERROR: Negative numbers?<br>What are you, antimatter?';
+        resultDiv.textContent = '🚨 ERROR: Negative numbers? What are you, antimatter?';
         resultDiv.style.color = '#333';
         playRetroSound('click');
         return;
     }
 
     if (heightCm > 300 || weightKg > 500) {
-        resultDiv.innerHTML = '🤨 Nice try. Unless you are a giraffe or a truck, recheck those numbers.';
+        resultDiv.textContent = '🤨 Nice try. Unless you are a giraffe or a truck, recheck those numbers.';
         resultDiv.style.color = '#333';
         playRetroSound('click');
         return;
@@ -234,17 +236,47 @@ function calculateBMI() {
 
         const advice = getDoctorAdvice(category);
 
-        resultDiv.innerHTML = `
-            <div style="font-size: 28px; margin-bottom: 10px;">🎉 CONGRATULATIONS! 🎉</div>
-            <div>Your BMI: <strong style="font-size: 32px;">${bmiRounded}</strong></div>
-            <div style="margin: 10px 0;">Category: <strong>${category}</strong></div>
-            <div style="font-style: italic; margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">
-                "${sassMessage}"
-            </div>
-            <div style="margin-top: 15px; font-size: 14px; color: #666;">
-                💡 <em>Doctor's advice: ${advice}</em>
-            </div>
-        `;
+        // Build result DOM with textContent (no innerHTML) so interpolated
+        // values are treated as text, never as markup.
+        resultDiv.textContent = '';
+        const congrats = document.createElement('div');
+        congrats.style.fontSize = '28px';
+        congrats.style.marginBottom = '10px';
+        congrats.textContent = '🎉 CONGRATULATIONS! 🎉';
+        resultDiv.appendChild(congrats);
+
+        const bmiLine = document.createElement('div');
+        const bmiLabel = document.createTextNode('Your BMI: ');
+        const bmiStrong = document.createElement('strong');
+        bmiStrong.style.fontSize = '32px';
+        bmiStrong.textContent = bmiRounded;
+        bmiLine.append(bmiLabel, bmiStrong);
+        resultDiv.appendChild(bmiLine);
+
+        const categoryLine = document.createElement('div');
+        categoryLine.style.margin = '10px 0';
+        const categoryStrong = document.createElement('strong');
+        categoryStrong.textContent = category;
+        categoryLine.append('Category: ', categoryStrong);
+        resultDiv.appendChild(categoryLine);
+
+        const quoteBox = document.createElement('div');
+        quoteBox.style.fontStyle = 'italic';
+        quoteBox.style.marginTop = '15px';
+        quoteBox.style.padding = '10px';
+        quoteBox.style.background = 'rgba(255,255,255,0.7)';
+        quoteBox.style.borderRadius = '5px';
+        quoteBox.textContent = '"' + sassMessage + '"';
+        resultDiv.appendChild(quoteBox);
+
+        const adviceLine = document.createElement('div');
+        adviceLine.style.marginTop = '15px';
+        adviceLine.style.fontSize = '14px';
+        adviceLine.style.color = '#666';
+        const adviceEm = document.createElement('em');
+        adviceEm.textContent = '💡 Doctor\'s advice: ' + advice;
+        adviceLine.appendChild(adviceEm);
+        resultDiv.appendChild(adviceLine);
         resultDiv.style.color = textColor;
         resultDiv.style.backgroundColor = bgColor;
         resultDiv.style.borderColor = borderColor;
